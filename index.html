@@ -97,12 +97,12 @@
 <nav class="fixed top-0 w-full z-50 bg-[#fbfaee]/80 dark:bg-[#1b1c15]/80 backdrop-blur-md flex justify-between items-center px-8 py-6 max-w-full mx-auto no-border bg-[#efeee3]/50 dark:bg-[#2a2b21]/50">
 <div class="font-serif italic text-2xl text-[#064E3B] dark:text-[#ecfdf5]">Artisanal Tea Co.</div>
 <div class="hidden md:flex items-center gap-8">
-<a class="font-serif tracking-tight text-[#1b1c15] dark:text-[#fbfaee] uppercase text-xs tracking-[0.1em] text-[#064E3B] dark:text-[#ecfdf5] border-b-2 border-[#D97706] pb-1" href="#">Về chúng tôi</a>
-<a class="font-serif tracking-tight text-[#1b1c15] dark:text-[#fbfaee] uppercase text-xs tracking-[0.1em] opacity-70 hover:text-[#9a4614] transition-colors duration-300" href="#">Mô hình</a>
-<a class="font-serif tracking-tight text-[#1b1c15] dark:text-[#fbfaee] uppercase text-xs tracking-[0.1em] opacity-70 hover:text-[#9a4614] transition-colors duration-300" href="#">Quy trình</a>
-<a class="font-serif tracking-tight text-[#1b1c15] dark:text-[#fbfaee] uppercase text-xs tracking-[0.1em] opacity-70 hover:text-[#9a4614] transition-colors duration-300" href="#">FAQ</a>
+<a class="font-serif tracking-tight text-[#1b1c15] dark:text-[#fbfaee] uppercase text-xs tracking-[0.1em] text-[#064E3B] dark:text-[#ecfdf5] border-b-2 border-[#D97706] pb-1" href="#about">Về chúng tôi</a>
+<a class="font-serif tracking-tight text-[#1b1c15] dark:text-[#fbfaee] uppercase text-xs tracking-[0.1em] opacity-70 hover:text-[#9a4614] transition-colors duration-300" href="#model">Mô hình</a>
+<a class="font-serif tracking-tight text-[#1b1c15] dark:text-[#fbfaee] uppercase text-xs tracking-[0.1em] opacity-70 hover:text-[#9a4614] transition-colors duration-300" href="#process">Quy trình</a>
+<a class="font-serif tracking-tight text-[#1b1c15] dark:text-[#fbfaee] uppercase text-xs tracking-[0.1em] opacity-70 hover:text-[#9a4614] transition-colors duration-300" href="#faq">FAQ</a>
 </div>
-<button class="bg-primary-container text-on-primary px-6 py-2 rounded-full font-label text-xs uppercase tracking-widest hover:bg-secondary transition-all active:scale-95">Tư vấn ngay</button>
+<a href="#contact" class="bg-primary-container text-on-primary px-6 py-2 rounded-full font-label text-xs uppercase tracking-widest hover:bg-secondary transition-all active:scale-95">Tư vấn ngay</a>
 </nav>
 <!-- Hero Section -->
 <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-6 overflow-hidden">
@@ -117,8 +117,8 @@
 <a href="#contact" class="bg-primary-container text-on-primary px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl hover:bg-secondary transition-all active:scale-95 text-center">
                         Inbox tư vấn nhượng quyền ngay
                     </a>
-<button class="border border-outline-variant text-primary px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-surface-container transition-all">
-                        Nhận lộ trình mở quán
+<button onclick="toggleChat()" class="border border-outline-variant text-primary px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-surface-container transition-all">
+                        Trò chuyện với trợ lý AI
                     </button>
 </div>
 <div class="flex gap-12 border-t border-outline-variant/30 pt-8">
@@ -185,7 +185,7 @@
 </div>
 </section>
 <!-- Solution Section -->
-<section class="py-24 px-6">
+<section id="model" class="py-24 px-6">
 <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 <div class="relative order-2 lg:order-1">
 <img alt="Milk tea preparation" class="rounded-3xl shadow-2xl w-full h-[600px] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAM4xQizqoLH_9Yfx-7ZH2k8yJwMxpe5QlXu3yo-h9Wq8iGpN_TLkpI2FA8rzkX2pj3jUViZvspMW6O93X0H7Omafbkk9OXc8Vs9l2koS1yV7jcVhggX2IKkvDSruCMlUzUadz1a3d40HEzL8rl1pNi8ydXNyJ5j9b3dpk8kb22xv_sJgdtTy9qGNWQeFsZ4BU2AVR6Ld7CFVMHodW57QKvMN7d1pf10Sop_plIHMjFxwhjCL_E5VWBpJyKov2ZwMjezLErf9RoWztA"/>
@@ -233,7 +233,7 @@
 </div>
 </section>
 <!-- Why Choose Section -->
-<section class="py-24 bg-primary text-white px-6">
+<section id="about" class="py-24 bg-primary text-white px-6">
 <div class="max-w-7xl mx-auto">
 <div class="text-center mb-20">
 <h2 class="font-headline text-3xl md:text-5xl font-bold mb-6">Điểm khác biệt không nằm ở việc mở được bao nhiêu quán,<br/>mà là tạo ra mô hình đủ bền để người khác có thể làm theo</h2>
@@ -287,7 +287,7 @@
 </div>
 </section>
 <!-- Process Section -->
-<section class="py-24 bg-surface-container-low px-6 overflow-hidden">
+<section id="process" class="py-24 bg-surface-container-low px-6 overflow-hidden">
 <div class="max-w-7xl mx-auto">
 <h2 class="font-headline text-3xl md:text-5xl text-primary font-bold mb-20 text-center">Quy trình nhượng quyền đơn giản và rõ ràng</h2>
 <div class="relative">
@@ -362,7 +362,7 @@
 </div>
 </section>
 <!-- FAQ -->
-<section class="py-24 bg-surface-container-low px-6">
+<section id="faq" class="py-24 bg-surface-container-low px-6">
 <div class="max-w-3xl mx-auto">
 <h2 class="font-headline text-3xl md:text-5xl text-primary font-bold mb-16 text-center">Những câu hỏi thường gặp</h2>
 <div class="space-y-4">
@@ -419,7 +419,7 @@
 </div>
 <div>
 <p class="text-sm text-on-surface-variant font-bold uppercase tracking-widest">Hotline</p>
-<p class="text-xl font-bold text-primary">09xx xxx xxx</p>
+<p class="text-xl font-bold text-primary">0909 686 888</p>
 </div>
 </div>
 <div class="flex items-center gap-6">
@@ -428,7 +428,7 @@
 </div>
 <div>
 <p class="text-sm text-on-surface-variant font-bold uppercase tracking-widest">Địa chỉ văn phòng</p>
-<p class="text-xl font-bold text-primary">Quận 1, TP. Hồ Chí Minh</p>
+<p class="text-xl font-bold text-primary">123 Nguyễn Văn Linh, Quận 7, TP.HCM</p>
 </div>
 </div>
 </div>
@@ -468,10 +468,10 @@
 <div>
 <h4 class="font-bold text-primary mb-6 uppercase text-xs tracking-widest">Liên kết</h4>
 <ul class="space-y-4 text-sm font-body">
-<li><a class="text-[#1b1c15] opacity-60 hover:opacity-100 hover:underline decoration-[#D97706] transition-all" href="#">Về chúng tôi</a></li>
-<li><a class="text-[#1b1c15] opacity-60 hover:opacity-100 hover:underline decoration-[#D97706] transition-all" href="#">Mô hình</a></li>
-<li><a class="text-[#1b1c15] opacity-60 hover:opacity-100 hover:underline decoration-[#D97706] transition-all" href="#">Quy trình</a></li>
-<li><a class="text-[#1b1c15] opacity-60 hover:opacity-100 hover:underline decoration-[#D97706] transition-all" href="#">FAQ</a></li>
+<li><a class="text-[#1b1c15] opacity-60 hover:opacity-100 hover:underline decoration-[#D97706] transition-all" href="#about">Về chúng tôi</a></li>
+<li><a class="text-[#1b1c15] opacity-60 hover:opacity-100 hover:underline decoration-[#D97706] transition-all" href="#model">Mô hình</a></li>
+<li><a class="text-[#1b1c15] opacity-60 hover:opacity-100 hover:underline decoration-[#D97706] transition-all" href="#process">Quy trình</a></li>
+<li><a class="text-[#1b1c15] opacity-60 hover:opacity-100 hover:underline decoration-[#D97706] transition-all" href="#faq">FAQ</a></li>
 </ul>
 </div>
 <div>
@@ -511,7 +511,7 @@
     <div class="chat-header-info">
       <div class="chat-avatar">🍵</div>
       <div>
-        <div class="chat-name">Trợ lý Nghĩa AI</div>
+        <div class="chat-name">Trợ lý N Tea AI</div>
         <div class="chat-status">
           <div class="status-dot"></div>
           <span class="status-text">Đang hoạt động</span>
@@ -544,5 +544,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="chatbot.js"></script>
+<!-- Sử dụng thư viện OpenAI SDK chính thức qua ESM CDN -->
+<script type="module" src="chatbot.js"></script>
 </body></html>

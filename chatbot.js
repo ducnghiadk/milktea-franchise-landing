@@ -1,16 +1,62 @@
+import OpenAI from "https://esm.sh/openai@4.28.0";
+
 // ─── CONFIG ───────────────────────────────────────────────
-const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY';
-const GEMINI_MODEL  = 'gemini-2.0-flash';
-const SYSTEM_PROMPT = `Bạn là trợ lý ảo của Nghĩa - chuyên gia nhượng quyền mô hình trà sữa thực chiến tại Việt Nam với hơn 20 điểm bán thành công.
+const API_KEY = 'sk-4bd27113b7dc78d1-lh6jld-f4f9c69f';
+const BASE_URL = 'https://9router.vuhai.io.vn/v1';
+const MODEL_NAME = 'ces-chatbot-gpt-5.4';
 
-Vai trò:
-- Tư vấn về mô hình nhượng quyền trà sữa: vốn 150-300 triệu, hồi vốn 6-10 tháng
-- Giải thích quy trình 5 bước: Tư vấn → Khảo sát → Ký kết & Đào tạo → Thi công → Khai trương
-- Nêu bật lợi ích: độc quyền khu vực 2km, hỗ trợ 24/7, thiết kế miễn phí, giảm 20% chi phí nguyên liệu
-- Khuyến khích khách để lại thông tin hoặc inbox trực tiếp
+const openai = new OpenAI({
+    apiKey: API_KEY,
+    baseURL: BASE_URL,
+    dangerouslyAllowBrowser: true // Cho phép gọi API trực tiếp từ frontend
+});
 
-Phong cách: thân thiện, chuyên nghiệp, ngắn gọn, dùng tiếng Việt tự nhiên, có thể dùng emoji nhẹ nhàng.
-Thông tin liên hệ: Hotline 09xx xxx xxx | Văn phòng Quận 1, TP.HCM`;
+const SYSTEM_PROMPT = `Bạn là AI trợ lý cá nhân độc quyền trên website của chuyên gia Nghĩa (thương hiệu N Tea House).
+Nhiệm vụ của bạn là hỗ trợ khách truy cập lịch sự, cung cấp thông tin chính xác về các dịch vụ, khóa học, và dự án của chuyên gia này.
+
+Dưới đây là cơ sở dữ liệu kiến thức (Knowledge Base) của bạn:
+
+==================================================
+1. THÔNG TIN THƯƠNG HIỆU / CHUYÊN GIA
+==================================================
+- Tên đại diện: Nghĩa
+- Vai trò: Nhà sáng lập và chủ mô hình kinh doanh trà sữa
+- Tên thương hiệu: N Tea House
+- Định vị thương hiệu: Người xây dựng mô hình trà sữa thực chiến, bền vững và có thể nhân rộng
+- Kinh nghiệm nổi bật: Đã phát triển hơn 20 điểm bán
+- Khu vực hạn chế: TP. Hồ Chí Minh, Bình Dương, Đồng Nai, Long An
+- Khu vực ưu tiên nhượng quyền: TP. Hồ Chí Minh, Bình Dương, Cần Thơ, Biên Hòa, các thành phố loại 1
+- Liên hệ tư vấn:
+  1. Zalo: 0988 268 999
+  2. Hotline: 0909 686 888
+  3. Facebook: https://facebook.com/nghiatrasua
+  4. Email: nhuongquyen@nteahouse.vn
+  5. Địa chỉ văn phòng: 123 Nguyễn Văn Linh, Quận 7, TP. Hồ Chí Minh
+  6. Giờ hỗ trợ: 08:30 - 20:00
+
+==================================================
+2. GIẢI PHÁP & QUY TRÌNH HỢP TÁC
+==================================================
+Anh Nghĩa cung cấp tư vấn nhượng quyền mô hình trà sữa thực chiến.
+Quy trình:
+1. Tư vấn ban đầu: Trao đổi về nguồn vốn, mặt bằng và kỳ vọng.
+2. Khảo sát mặt bằng: Đội ngũ kỹ thuật trực tiếp thẩm định vị trí kinh doanh.
+3. Ký kết & Đào tạo: Chuyển giao công thức và quy trình vận hành quán.
+4. Thi công & Setup: Hoàn thiện không gian quán theo tiêu chuẩn thương hiệu.
+5. Khai trương & Vận hành: Đội ngũ hỗ trợ onsite trong 3-5 ngày đầu khai trương.
+
+==================================================
+3. LỢI ÍCH & CHI PHÍ
+==================================================
+- Trả lời về vốn: Vốn đầu tư dao động từ 150 triệu đến 300 triệu tùy thuộc vào diện tích và mặt bằng. Thời gian hồi vốn trung bình 6-10 tháng (phụ thuộc nhiều yếu tố thực tế, KHÔNG cam kết doanh thu cố định).
+- Trả lời kinh nghiệm: Hoàn toàn làm được dù chưa có kinh nghiệm nhờ mô hình "Chìa khóa trao tay".
+- Lợi ích: Độc quyền khu vực (bán kính 2km), tối ưu chi phí nguyên liệu (-20%), App quản lý, Marketing tổng lực, Hỗ trợ 24/7.
+
+Quy tắc giao tiếp bắt buộc:
+1. Luôn chào hỏi thân thiện và kết thúc bằng cách mời họ đặt thêm câu hỏi.
+2. Bạn phải định dạng các câu trả lời của mình bằng Markdown đầy đủ (in đậm ý chính, dùng gạch đầu dòng, tạo code block nếu cần).
+3. Nếu người dùng hỏi điều gì ngoài phạm vi dữ liệu trên, hãy tế nhị từ chối và hướng dẫn họ gửi email (nhuongquyen@nteahouse.vn) hoặc nhắn tin Zalo (0988 268 999) trực tiếp cho chuyên gia.
+4. Không được phép bịa đặt thông tin ngoài cơ sở dữ liệu đã cấp.`;
 
 // ─── STATE ───────────────────────────────────────────────
 let chatHistory = [];
@@ -18,7 +64,7 @@ let isTyping    = false;
 let chatOpen    = false;
 
 // ─── TOGGLE ──────────────────────────────────────────────
-function toggleChat() {
+window.toggleChat = function() {
   const win = document.getElementById('chat-window');
   const fab = document.getElementById('chatbot-fab');
   chatOpen = !chatOpen;
@@ -31,22 +77,25 @@ function toggleChat() {
     win.style.display = 'none';
     fab.classList.remove('open');
   }
-}
+};
 
 // ─── WELCOME ─────────────────────────────────────────────
 function showWelcome() {
-  appendBotMessage(`Xin chào! 👋 Tôi là **Trợ lý Nghĩa AI** — sẵn sàng tư vấn nhượng quyền trà sữa thực chiến.\n\nBạn muốn hỏi về:\n- 💰 Vốn đầu tư & thời gian hồi vốn\n- 📍 Khu vực kinh doanh phù hợp\n- 🔄 Quy trình nhượng quyền 5 bước\n- 🎁 Quyền lợi khi tham gia\n\nBắt đầu với câu hỏi nào nhé?`);
+  appendBotMessage(`Xin chào! 👋 Tôi là **Trợ lý AI của chuyên gia Nghĩa (N Tea House)**.\n\nTôi ở đây để hỗ trợ bạn tìm hiểu về mô hình nhượng quyền trà sữa thực chiến. Bạn muốn hỏi về vấn đề gì ạ?\n\n- 💰 Vốn đầu tư & chi phí\n- 🔄 Quy trình hợp tác\n- 🎁 Lợi ích & độc quyền\n\nBạn có thắc mắc gì thêm không?`);
+  chatHistory = [
+    { role: 'system', content: SYSTEM_PROMPT },
+    { role: 'assistant', content: `Xin chào! 👋 Tôi là **Trợ lý AI của chuyên gia Nghĩa (N Tea House)**.\n\nTôi ở đây để hỗ trợ bạn tìm hiểu về mô hình nhượng quyền trà sữa thực chiến. Bạn muốn hỏi về vấn đề gì ạ?\n\n- 💰 Vốn đầu tư & chi phí\n- 🔄 Quy trình hợp tác\n- 🎁 Lợi ích & độc quyền\n\nBạn có thắc mắc gì thêm không?` }
+  ];
 }
 
 // ─── REFRESH ─────────────────────────────────────────────
-function refreshChat() {
+window.refreshChat = function() {
   const icon = document.getElementById('refresh-icon');
   icon.classList.add('spinning');
   setTimeout(() => icon.classList.remove('spinning'), 500);
-  chatHistory = [];
   document.getElementById('chat-messages').innerHTML = '';
   setTimeout(showWelcome, 100);
-}
+};
 
 // ─── RENDER HELPERS ──────────────────────────────────────
 function appendBotMessage(text) {
@@ -88,75 +137,55 @@ function escHtml(t) {
   return d.innerHTML;
 }
 
-function autoResize(el) {
+window.autoResize = function(el) {
   el.style.height = 'auto';
   el.style.height = Math.min(el.scrollHeight, 100) + 'px';
-}
+};
 
-function handleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-}
+window.handleKey = function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { 
+      e.preventDefault(); 
+      window.sendMessage(); 
+  }
+};
 
 // ─── SEND ────────────────────────────────────────────────
-async function sendMessage() {
+window.sendMessage = async function() {
   const input   = document.getElementById('chat-input');
   const sendBtn = document.getElementById('chat-send-btn');
   const text    = input.value.trim();
+  
   if (!text || isTyping) return;
   input.value = ''; input.style.height = 'auto';
+  
   appendUserMessage(text);
-  chatHistory.push({ role: 'user', parts: [{ text }] });
+  chatHistory.push({ role: 'user', content: text });
+  
   isTyping = true; sendBtn.disabled = true;
   showTyping();
+  
   try {
-    const reply = await callGemini();
+    const reply = await callAPI();
     hideTyping();
     appendBotMessage(reply);
-    chatHistory.push({ role: 'model', parts: [{ text: reply }] });
+    chatHistory.push({ role: 'assistant', content: reply });
   } catch(err) {
     hideTyping();
-    appendBotMessage('Xin lỗi, tôi gặp sự cố kỹ thuật. Vui lòng liên hệ trực tiếp hotline **09xx xxx xxx** nhé!');
-    console.error(err);
+    appendBotMessage('Xin lỗi, tôi gặp sự cố kỹ thuật. Vui lòng gửi email đến **nhuongquyen@nteahouse.vn** hoặc nhắn Zalo **0988 268 999** để được chuyên gia Nghĩa hỗ trợ trực tiếp.\n\nBạn có một câu hỏi khác không?');
+    console.error("OpenAI API Error:", err);
   } finally {
     isTyping = false; sendBtn.disabled = false; input.focus();
   }
-}
+};
 
-// ─── GEMINI API ──────────────────────────────────────────
-async function callGemini() {
-  if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY') {
-    await new Promise(r => setTimeout(r, 900 + Math.random()*600));
-    return getDemoResponse(chatHistory[chatHistory.length-1].parts[0].text);
-  }
-  const url  = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
-  const body = {
-    system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-    contents: chatHistory,
-    generationConfig: { temperature: 0.75, maxOutputTokens: 1024, topP: 0.9 }
-  };
-  const res = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
-  if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || 'API error'); }
-  const data = await res.json();
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Tôi chưa hiểu câu hỏi. Bạn thử hỏi lại nhé!';
-}
-
-// ─── DEMO MODE ───────────────────────────────────────────
-function getDemoResponse(t) {
-  const q = t.toLowerCase();
-  if (q.match(/vốn|tiền|bao nhiêu|chi phí/)) {
-    return `**Vốn đầu tư theo gói:**\n\n- 💰 **Gói nhỏ (20-30m²):** ~150 triệu\n- 💰 **Gói chuẩn (30-50m²):** 200–250 triệu\n- 💰 **Gói đầy đủ (50m²+):** ~300 triệu\n\nThời gian **hồi vốn trung bình 6–10 tháng** dựa trên 20 điểm bán hiện tại.\n\n👉 Để biết gói phù hợp với ngân sách của bạn, hãy để lại **số điện thoại** để Nghĩa tư vấn trực tiếp!`;
-  }
-  if (q.match(/quy trình|bước|thủ tục|quá trình/)) {
-    return `**Quy trình nhượng quyền 5 bước:**\n\n1. 🤝 **Tư vấn ban đầu** — Trao đổi vốn, mặt bằng, kỳ vọng\n2. 📍 **Khảo sát mặt bằng** — Đội kỹ thuật thẩm định vị trí\n3. ✍️ **Ký kết & Đào tạo** — Chuyển giao công thức & quy trình\n4. 🏗️ **Thi công & Setup** — Hoàn thiện không gian theo chuẩn\n5. 🎉 **Khai trương & Vận hành** — Hỗ trợ onsite 3–5 ngày đầu\n\nTừ ký kết đến khai trương thường **4–6 tuần**.`;
-  }
-  if (q.match(/lợi ích|quyền lợi|nhận được|được gì/)) {
-    return `**Quyền lợi khi tham gia:**\n\n- 🏆 **Độc quyền 2km** — cam kết không mở thêm điểm trong bán kính\n- 📱 **App quản lý** — kho, nhân sự, dòng tiền trong 1 app\n- 📣 **Marketing tổng lực** — hỗ trợ khai trương & duy trì khách\n- 🔑 **Công thức độc quyền** tối ưu theo mùa\n- 💲 **Giảm 20% chi phí** nguyên liệu qua nguồn giá gốc\n- 🛠️ **Hỗ trợ 24/7** từ đội ngũ Nghĩa\n- 🎨 **Thiết kế miễn phí** theo chuẩn thương hiệu`;
-  }
-  if (q.match(/kinh nghiệm|mới|chưa biết|người mới/)) {
-    return `Hoàn toàn không cần kinh nghiệm! 🎯\n\nMô hình **\"Chìa khóa trao tay\"** của Nghĩa được thiết kế để người **mới bắt đầu** cũng vận hành trơn tru ngay từ ngày đầu.\n\nBạn sẽ được đào tạo bài bản về:\n- Pha chế & kiểm soát chat lượng\n- Quản lý nhân sự & kho hàng\n- Chiến lược marketing địa phương\n\n📞 Gọi **09xx xxx xxx** để đặt lịch tham quan 1 điểm bán thực tế nhé!`;
-  }
-  if (q.match(/hồi vốn|thu hồi|lãi|lợi nhuận/)) {
-    return `**Thời gian hồi vốn thực tế:**\n\nDựa trên **20 điểm bán** hiện tại:\n- ⚡ **Nhanh nhất:** 5–6 tháng (vị trí đắc địa, vận hành tốt)\n- 📊 **Trung bình:** 6–10 tháng\n- 🐢 **Chậm hơn:** 10–12 tháng (vị trí ít traffic)\n\n> *Nghĩa cam kết tư vấn chọn vị trí để tối ưu thời gian hồi vốn cho bạn.*\n\n💬 Inbox ngay để được phân tích tiềm năng **khu vực của bạn**!`;
-  }
-  return `Cảm ơn bạn đã quan tâm! 🍵\n\nĐể được tư vấn chi tiết & cá nhân hóa nhất:\n\n- 📞 Hotline: **09xx xxx xxx**\n- 💬 Điền form ở cuối trang để Nghĩa gọi lại\n- 📍 Văn phòng: **Quận 1, TP.HCM**\n\nNghĩa sẽ phản hồi trong thời gian sớm nhất! 🚀`;
+// ─── OPENAI API WITH CUSTOM ENDPOINT ──────────────────────
+async function callAPI() {
+    const completion = await openai.chat.completions.create({
+        model: MODEL_NAME,
+        messages: chatHistory,
+        temperature: 0.7,
+        max_tokens: 1024,
+    });
+    
+    return completion.choices[0].message.content || 'Xin lỗi, tôi chưa hiểu rõ ý của bạn. Bạn muốn tôi giải thích thêm về gì ạ?';
 }
